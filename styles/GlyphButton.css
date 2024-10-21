@@ -1,0 +1,61 @@
+.glyph-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.glyph-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.glyph-button:is(:hover, :focus-visible)::before {
+  opacity: 0.0875;
+}
+
+.glyph-button-content {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+}
+
+.glyph-button-content > span {
+  position: relative;
+  color: transparent;
+}
+
+.glyph-button-content > span::after {
+  content: attr(data-char);
+  position: absolute;
+  display: inline-block;
+  inset: 0;
+  color: #000;
+}
+
+.glyph-button:is(:hover, :focus-visible) .glyph-button-content > span::after {
+  animation: flash calc(var(--speed, 0.25) * 1s) calc(var(--index, 0) * 0.05s) steps(1, end);
+}
+
+@keyframes flash {
+  0%, 20% { content: '\2027'; }
+  40% { content: var(--char-1); }
+  60% { content: var(--char-2); }
+  80% { content: var(--char-3); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
